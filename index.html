@@ -280,6 +280,69 @@ input[type="radio"]{
   text-align:center;
   font-weight:500;
 }
+
+.game-container{
+  position: fixed;
+  right: 120px;
+  bottom: 120px;
+  width: 330px;
+  text-align: center;
+}
+
+#game{
+  width:330px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:repeat(3,100px);
+  gap:10px;
+}
+
+.hole{
+  width:100px;
+  height:100px;
+  background:#f7c4c8;
+  border-radius:50%;
+  position:relative;
+  overflow:hidden;
+}
+
+.mole{
+  position:absolute;
+  bottom:-100px;
+  left:50%;
+  transform:translateX(-50%);
+  transition:0.15s;
+}
+
+.mole img{
+  width:80px;
+  height:80px;
+  object-fit:cover;
+  border-radius:50%;
+  display:block;
+}
+
+.mole.up{
+  bottom:10px;
+}
+
+#scoreboard{
+  margin:10px;
+  font-size:18px;
+  color:#f097a0;
+}
+
+#startBtn{
+  padding:8px 18px;
+  border:none;
+  border-radius:20px;
+  background:#ff69b4;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+  margin-bottom:10px;
+}
+
 </style>
 </head>
 
@@ -371,6 +434,19 @@ input[type="radio"]{
   </div>
 </div>
 
+<div class="game-container">
+ <h1> ≽(◉˕ ◉ ≼マ </h1>
+  <div id="scoreboard">
+    Score: <span id="score">0</span> |
+    Time: <span id="time">30</span>
+  </div>
+
+  <button id="startBtn">Start Game</button>
+
+  <div id="game"></div>
+
+</div>
+
 <script>
 let isLoggedIn = false;
 
@@ -417,6 +493,105 @@ document.getElementById('signupForm').addEventListener('submit', function(event)
   event.preventDefault();
   alert('Sign Up Successful!');
 });
+
+
+const game = document.getElementById("game");
+const scoreDisplay = document.getElementById("score");
+const timeDisplay = document.getElementById("time");
+const startBtn = document.getElementById("startBtn");
+
+let score = 0;
+let timeLeft = 30;
+let gameRunning = false;
+
+const moleImages = [
+  "https://i.pinimg.com/1200x/88/de/a4/88dea4b432ea7df3687f45f35d91d7de.jpg",
+  "https://i.pinimg.com/736x/a7/1a/81/a71a814a66467646c3c35e25bac1ac93.jpg",
+  "https://i.pinimg.com/736x/52/d2/2a/52d22abfc3d5455f3635e7205124029a.jpg",
+  "https://i.pinimg.com/736x/7f/d0/21/7fd0212b37bc3b90c22192d464ba1de3.jpg",
+  "https://i.pinimg.com/736x/9a/55/7b/9a557bd089c1f564f7708fecea294482.jpg",
+  "https://i.pinimg.com/736x/94/d1/22/94d122ef806661796b5f5dadb60c19d4.jpg"
+];
+
+const bonusMole = "https://i.pinimg.com/originals/a2/50/da/a250da88d856fdd4243795d0c0881e18.gif";
+
+for(let i=0;i<9;i++){
+  const hole = document.createElement("div");
+  hole.className = "hole";
+
+  const mole = document.createElement("div");
+  mole.className = "mole";
+  mole.dataset.active = "false";
+  mole.dataset.points = "1";
+
+  const img = document.createElement("img");
+  mole.appendChild(img);
+
+  hole.appendChild(mole);
+  game.appendChild(hole);
+
+  mole.addEventListener("click", () => {
+    if(gameRunning && mole.dataset.active === "true"){
+      score += parseInt(mole.dataset.points);
+      scoreDisplay.textContent = score;
+
+      mole.classList.remove("up");
+      mole.dataset.active = "false";
+    }
+  });
+}
+
+function getSpeed(){
+  return Math.max(200, 800 - (score * 30));
+}
+
+function popMole(){
+  if(!gameRunning) return;
+
+  const moles = document.querySelectorAll(".mole");
+  const mole = moles[Math.floor(Math.random() * moles.length)];
+
+  if(Math.random() < 0.1){
+    mole.querySelector("img").src = bonusMole;
+    mole.dataset.points = "5";
+  } else {
+    const randIndex = Math.floor(Math.random() * moleImages.length);
+    mole.querySelector("img").src = moleImages[randIndex];
+    mole.dataset.points = "1";
+  }
+
+  mole.classList.add("up");
+  mole.dataset.active = "true";
+
+  setTimeout(() => {
+    mole.classList.remove("up");
+    mole.dataset.active = "false";
+    popMole();
+  }, getSpeed());
+}
+
+function startGame(){
+  score = 0;
+  timeLeft = 30;
+  gameRunning = true;
+  scoreDisplay.textContent = score;
+  timeDisplay.textContent = timeLeft;
+
+  popMole();
+
+  const timer = setInterval(() => {
+    timeLeft--;
+    timeDisplay.textContent = timeLeft;
+
+    if(timeLeft <= 0){
+      gameRunning = false;
+      clearInterval(timer);
+      alert("Game Over! Score: " + score);
+    }
+  }, 1000);
+}
+
+startBtn.addEventListener("click", startGame);
 </script>
 
 </body>
