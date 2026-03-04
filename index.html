@@ -85,10 +85,6 @@ body{
   align-items:center;
   justify-content:center;
   background-color:#fadadd;
-  background-image:url("https://i.pinimg.com/originals/aa/1b/01/aa1b0107b776f2a4cb0dffba54c06aed.gif");
-  background-repeat:no-repeat;
-  background-position:center;
-  background-size:cover;
   min-height:100vh;
   padding-top:100px;
 }
@@ -361,15 +357,13 @@ input[type="radio"]{
 
 <div class="side-menu">
   <h1>About Me!!</h1>
-  <button>Personal Details</button>
-  <button>Family Background</button>
-  <button>Personal</button>
-  <button>My Collection</button>
-  <button>Family</button>
-  <button>Education</button>
-  <button onclick="location.href='quiz.html'">
-    Take a Quiz! (⸝⸝> ᴗ•⸝⸝)
-  </button>
+  <button onclick="window.location.href='personal_details.html'">Personal Details</button>
+  <button onclick="window.location.href='family background.html'">Family Background</button>
+<button onclick="checkLogin('personal.html')">Personal</button>
+<button onclick="checkLogin('coll.html')">My Collection</button>
+<button onclick="checkLogin('fam.html')">Family</button>
+<button onclick="checkLogin('educ.html')">Education</button>
+
 </div>
 
 
@@ -602,5 +596,3 @@ startBtn.addEventListener("click", startGame);
 
 </body>
 </html>
-
-
