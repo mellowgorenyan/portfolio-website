@@ -31,8 +31,6 @@
   flex-direction: column;
 }
 
-}
-
 .side-menu h1{
   font-size: 40px;
   margin-bottom: 20px;
@@ -54,7 +52,6 @@
 .side-menu button:hover{
   transform:scale(1.1);
 }
-
 
 .navbar button{
   padding:10px 20px;
@@ -150,7 +147,6 @@ body{
   opacity:1;
   transition-delay:0.2s;
 }
-
 
 .wrapper{
   overflow:hidden;
@@ -348,8 +344,6 @@ input[type="radio"]{
 
 <body>
 
-
-
 <div class="navbar">
   <button class="signin" onclick="showForm('login')">Sign In</button>
   <button class="signup" onclick="showForm('signup')">Sign Up</button>
@@ -359,13 +353,12 @@ input[type="radio"]{
   <h1>About Me!!</h1>
   <button onclick="window.location.href='personal_details.html'">Personal Details</button>
   <button onclick="window.location.href='family background.html'">Family Background</button>
-<button onclick="checkLogin('personal.html')">Personal</button>
-<button onclick="checkLogin('coll.html')">My Collection</button>
-<button onclick="checkLogin('fam.html')">Family</button>
-<button onclick="checkLogin('educ.html')">Education</button>
-
+  <button onclick="window.location.href='personal.html'">Personal</button>
+  <button onclick="window.location.href='coll.html'">My Collection</button>
+  <button onclick="window.location.href='fam.html'">Family</button>
+  <button onclick="window.location.href='educ.html'">Education</button>
+   <button onclick="window.location.href='quiz.html'">Wanna take a quiz? Click here :3</button>
 </div>
-
 
 <div class="container">
   <div class="card">
@@ -438,7 +431,7 @@ input[type="radio"]{
  <h1> ≽(◉˕ ◉ ≼マ </h1>
   <div id="scoreboard">
     Score: <span id="score">0</span> |
-    Time: <span id="time">30</span>
+    Time: <span id="time">60</span>
   </div>
 
   <button id="startBtn">Start Game</button>
@@ -448,8 +441,6 @@ input[type="radio"]{
 </div>
 
 <script>
-let isLoggedIn = false;
-
 function showForm(type) {
   document.querySelector('.container').style.display = 'none';
   document.querySelector('.wrapper').style.display = 'block';
@@ -465,14 +456,6 @@ function hideForm() {
   document.querySelector('.wrapper').style.display = 'none';
 }
 
-function checkLogin(page) {
-  if (!isLoggedIn) {
-    alert("You must login first!");
-  } else {
-    window.location.href = page;
-  }
-}
-
 document.getElementById('loginForm').addEventListener('submit', function(event) {
   event.preventDefault(); 
   var email = document.getElementById('loginEmail').value;
@@ -482,7 +465,6 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
   if (email === 'winny.verzosa02@gmail.com' && password === 'mellowgorenyan123') {
     message.style.color = 'green';
     message.innerHTML = 'Login Successful!';
-    isLoggedIn = true;
   } else {
     message.style.color = 'red';
     message.innerHTML = 'Invalid Email or Password!';
@@ -493,7 +475,6 @@ document.getElementById('signupForm').addEventListener('submit', function(event)
   event.preventDefault();
   alert('Sign Up Successful!');
 });
-
 
 const game = document.getElementById("game");
 const scoreDisplay = document.getElementById("score");
@@ -542,7 +523,7 @@ for(let i=0;i<9;i++){
 }
 
 function getSpeed(){
-  return Math.max(200, 800 - (score * 30));
+  return Math.max(600, 1400 - (score * 20));
 }
 
 function popMole(){
@@ -572,7 +553,7 @@ function popMole(){
 
 function startGame(){
   score = 0;
-  timeLeft = 30;
+  timeLeft = 60;
   gameRunning = true;
   scoreDisplay.textContent = score;
   timeDisplay.textContent = timeLeft;
