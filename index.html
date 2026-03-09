@@ -871,7 +871,7 @@ body {
         <label><input type="radio" name="q18"> AWOOO BABY I'M PREYIN ON YOU TONIGHT~~</label>
       </div>
 
-      <div class="quiz-q">
+           <div class="quiz-q">
         <iframe width="300" height="170" src="https://www.dailymotion.com/embed/video/xclasi" allowfullscreen style="border-radius:8px;margin-bottom:6px;display:block;"></iframe>
         19. What can be seen in the video?<br>
         <label><input type="radio" name="q19"> A grill dancing</label>
@@ -886,4 +886,200 @@ body {
         <label><input type="radio" name="q20"> Old hag</label>
         <label><input type="radio" name="q20"> The love of my life</label>
         <label><input type="radio" name="q20"> Myself</label>
-        <label><input type="radio" name="q20" id="q20d"> Kasane Teto expressing love and affection th
+        <label><input type="radio" name="q20" id="q20d"> Kasane Teto expressing love and affection through light-hearted metaphors and youthful exuberance.</label>
+      </div>
+
+      <button id="submitBtn" onclick="checkQuiz()">Submit</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function showPage(pageId) {
+  document.querySelectorAll('.page').forEach(p => {
+    p.classList.remove('active');
+    p.style.display = 'none';
+  });
+
+  document.querySelectorAll('.side-menu button').forEach(b => b.classList.remove('active'));
+
+  const target = document.getElementById('page-' + pageId);
+  if (target) {
+    target.style.display = 'block';
+    target.offsetHeight;
+    target.classList.add('active');
+  }
+
+  const btn = document.getElementById('btn-' + pageId);
+  if (btn) btn.classList.add('active');
+}
+
+document.querySelectorAll('.page').forEach(p => { p.style.display = 'none'; });
+document.getElementById('page-home').style.display = 'block';
+document.getElementById('page-home').classList.add('active');
+
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const email = document.getElementById('loginEmail').value;
+  const password = document.getElementById('loginPassword').value;
+  const message = document.getElementById('loginMessage');
+  if (email === 'winny.verzosa02@gmail.com' && password === 'mellowgorenyan123') {
+    message.style.color = 'green';
+    message.innerHTML = 'Login Successful! Opening page...';
+    setTimeout(() => {
+      window.open('page.html', '_blank');
+    }, 800);
+  } else {
+    message.style.color = 'red';
+    message.innerHTML = 'Invalid Email or Password!';
+  }
+});
+
+document.getElementById('signupForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  alert('Sign Up Successful!');
+});
+
+const game = document.getElementById("game");
+const scoreDisplay = document.getElementById("score");
+const timeDisplay = document.getElementById("time");
+const startBtn = document.getElementById("startBtn");
+
+let score = 0, timeLeft = 60, gameRunning = false;
+
+const moleImages = [
+  "https://i.pinimg.com/1200x/88/de/a4/88dea4b432ea7df3687f45f35d91d7de.jpg",
+  "https://i.pinimg.com/736x/a7/1a/81/a71a814a66467646c3c35e25bac1ac93.jpg",
+  "https://i.pinimg.com/736x/52/d2/2a/52d22abfc3d5455f3635e7205124029a.jpg",
+  "https://i.pinimg.com/736x/7f/d0/21/7fd0212b37bc3b90c22192d464ba1de3.jpg",
+  "https://i.pinimg.com/736x/9a/55/7b/9a557bd089c1f564f7708fecea294482.jpg",
+  "https://i.pinimg.com/736x/94/d1/22/94d122ef806661796b5f5dadb60c19d4.jpg"
+];
+const bonusMole = "https://i.pinimg.com/originals/a2/50/da/a250da88d856fdd4243795d0c0881e18.gif";
+
+for (let i = 0; i < 9; i++) {
+  const hole = document.createElement("div");
+  hole.className = "hole";
+  const mole = document.createElement("div");
+  mole.className = "mole";
+  mole.dataset.active = "false";
+  mole.dataset.points = "1";
+  const img = document.createElement("img");
+  mole.appendChild(img);
+  hole.appendChild(mole);
+  game.appendChild(hole);
+  mole.addEventListener("click", () => {
+    if (gameRunning && mole.dataset.active === "true") {
+      score += parseInt(mole.dataset.points);
+      scoreDisplay.textContent = score;
+      mole.classList.remove("up");
+      mole.dataset.active = "false";
+    }
+  });
+}
+
+function getSpeed() { return Math.max(600, 1400 - (score * 20)); }
+
+function popMole() {
+  if (!gameRunning) return;
+  const moles = document.querySelectorAll(".mole");
+  const mole = moles[Math.floor(Math.random() * moles.length)];
+  if (Math.random() < 0.1) {
+    mole.querySelector("img").src = bonusMole;
+    mole.dataset.points = "5";
+  } else {
+    mole.querySelector("img").src = moleImages[Math.floor(Math.random() * moleImages.length)];
+    mole.dataset.points = "1";
+  }
+  mole.classList.add("up");
+  mole.dataset.active = "true";
+  setTimeout(() => {
+    mole.classList.remove("up");
+    mole.dataset.active = "false";
+    popMole();
+  }, getSpeed());
+}
+
+function startGame() {
+  score = 0; timeLeft = 60; gameRunning = true;
+  scoreDisplay.textContent = score;
+  timeDisplay.textContent = timeLeft;
+  popMole();
+  const timer = setInterval(() => {
+    timeLeft--;
+    timeDisplay.textContent = timeLeft;
+    if (timeLeft <= 0) {
+      gameRunning = false;
+      clearInterval(timer);
+      alert("Game Over! Score: " + score);
+    }
+  }, 1000);
+}
+
+startBtn.addEventListener("click", startGame);
+
+const pdImages = [
+  { id: 'pd-img1', x: 100, y: 100, vx: 2, vy: 2 },
+  { id: 'pd-img2', x: 200, y: 200, vx: -2, vy: 1 },
+  { id: 'pd-img3', x: 300, y: 300, vx: 1, vy: -2 },
+  { id: 'pd-img4', x: 400, y: 400, vx: -1, vy: 2 }
+];
+
+function animatePD() {
+  const container = document.getElementById('pd-container');
+  if (!container) return;
+  const W = container.offsetWidth;
+  const H = container.offsetHeight;
+  pdImages.forEach(img => {
+    const el = document.getElementById(img.id);
+    if (!el) return;
+    img.x += img.vx;
+    img.y += img.vy;
+    if (img.x <= 0 || img.x >= W - el.offsetWidth) img.vx = -img.vx;
+    if (img.y <= 0 || img.y >= H - el.offsetHeight) img.vy = -img.vy;
+    el.style.left = img.x + 'px';
+    el.style.top = img.y + 'px';
+  });
+}
+
+pdImages.forEach(img => {
+  const el = document.getElementById(img.id);
+  if (el) { el.style.left = img.x + 'px'; el.style.top = img.y + 'px'; }
+});
+
+setInterval(animatePD, 16);
+
+function checkQuiz() {
+  let score = 0;
+  let wrong = [];
+  if (document.getElementById("q1c").checked) score++; else wrong.push(1);
+  if (document.getElementById("q2c").checked) score++; else wrong.push(2);
+  if (document.getElementById("q3c").checked) score++; else wrong.push(3);
+  if (document.getElementById("q4d").checked) score++; else wrong.push(4);
+  if (document.getElementById("q5d").checked) score++; else wrong.push(5);
+  if (document.getElementById("q6b").checked) score++; else wrong.push(6);
+  if (document.getElementById("q7b").checked) score++; else wrong.push(7);
+  if (document.getElementById("q8a").checked) score++; else wrong.push(8);
+  if (document.getElementById("q9a").checked) score++; else wrong.push(9);
+  if (document.getElementById("q10b").checked) score++; else wrong.push(10);
+  if (document.getElementById("q11b").checked) score++; else wrong.push(11);
+  if (document.getElementById("q12b").checked) score++; else wrong.push(12);
+  if (document.getElementById("q13c").checked) score++; else wrong.push(13);
+  if (document.getElementById("q14a").checked) score++; else wrong.push(14);
+  if (document.getElementById("q15a").checked) score++; else wrong.push(15);
+  if (document.getElementById("q16d").checked) score++; else wrong.push(16);
+  if (document.getElementById("q17c").checked) score++; else wrong.push(17);
+  if (document.getElementById("q18a").checked) score++; else wrong.push(18);
+  if (document.getElementById("q19d").checked) score++; else wrong.push(19);
+  if (document.getElementById("q20d").checked) score++; else wrong.push(20);
+
+  let message = "ur score is " + score + "/20";
+  if (wrong.length > 0) message += "\n\nu are wrong in number(s) :P :\n" + wrong.join(", ");
+  alert(message);
+}
+</script>
+
+</body>
+</html>
+
