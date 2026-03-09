@@ -2,466 +2,938 @@
 <html>
 <head>
 <title>Homepage</title>
-
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   font-family: Papyrus, fantasy;
 }
 
-.navbar{
+body {
+  display: flex;
+  min-height: 100vh;
+  background-color: #fadadd;
+}
+
+/* ── SIDE MENU ── */
+.side-menu {
   position: fixed;
   top: 0;
+  left: 0;
+  width: 240px;
+  height: 100vh;
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  padding: 30px 20px;
+  z-index: 100;
+  box-shadow: 3px 0 15px rgba(0,0,0,0.08);
+}
+
+.side-menu h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.side-menu button {
+  padding: 10px 16px;
+  margin: 6px 0;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  font-family: Papyrus, fantasy;
+  background: #fff;
+  color: #333;
+  transition: 0.3s;
+  text-align: left;
+  font-size: 13px;
+}
+
+.side-menu button:hover {
+  transform: scale(1.05);
+  background: #f7c4c8;
+}
+
+.side-menu button.active {
+  background: #ff69b4;
+  color: white;
+}
+
+.side-menu .quiz-btn {
+  background: #ff69b4;
+  color: white;
+  margin-top: 10px;
+}
+
+.side-menu .quiz-btn:hover {
+  background: #f04f9a;
+}
+
+/* ── MAIN CONTENT AREA ── */
+.main {
+  margin-left: 240px;
+  flex: 1;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── NAVBAR ── */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 240px;
   right: 0;
-  width: 100%;
-  padding: 20px 40px;
+  padding: 16px 40px;
   display: flex;
   justify-content: flex-end;
   background: transparent;
-  z-index: 1000;
+  z-index: 99;
 }
 
-.side-menu{
-  position: fixed;
-  top: 30px;
-  left: 40px;
+.navbar button {
+  padding: 10px 20px;
+  margin-left: 15px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  font-family: Papyrus, fantasy;
+  transition: 0.3s;
+}
+
+.signin { background: #fff; color: #333; }
+.signup { background: #ff69b4; color: white; }
+.navbar button:hover { transform: scale(1.1); }
+
+/* ── PAGES ── */
+.page {
+  display: none;
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  padding: 90px 50px 50px 50px;
+  min-height: 100vh;
+}
+
+.page.active {
+  display: block;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ── HOME PAGE ── */
+.home-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 140px);
+}
+
+.card {
+  position: relative;
+  max-width: 400px;
+  height: 215px;
+  background-color: #fff;
+  margin: 30px 10px;
+  padding: 20px 15px;
   display: flex;
   flex-direction: column;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+  transition: 0.3s ease-in-out;
+  border-radius: 15px;
 }
 
-.side-menu h1{
-  font-size: 40px;
+.card:hover { height: 320px; }
+
+.card .image {
+  position: relative;
+  width: 390px;
+  height: 200px;
+  top: -40%;
+  left: 8px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.card .image img {
+  max-width: 390px;
+  border-radius: 15px;
+}
+
+.card .content {
+  position: relative;
+  top: -140px;
+  padding: 10px 15px;
+  color: #111;
+  text-align: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.3s ease-in-out;
+}
+
+.card:hover .content {
+  margin-top: 30px;
+  visibility: visible;
+  opacity: 1;
+  transition-delay: 0.2s;
+}
+
+/* ── GENERIC PAGE CONTENT ── */
+.page-box {
+  background: #fff;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  max-width: 700px;
+}
+
+.page-box h2 {
+  color: #f097a0;
   margin-bottom: 20px;
+  font-size: 28px;
 }
 
-.side-menu button{
-  padding:10px 20px;
-  margin:10px 0;
-  border:none;
-  border-radius:20px;
-  cursor:pointer;
-  font-weight:bold;
-  background:#fff;
-  color:#333;
-  transition:0.3s;
-  text-align:left;
+.page-box p {
+  color: #555;
+  line-height: 1.8;
+  margin-bottom: 10px;
 }
 
-.side-menu button:hover{
-  transform:scale(1.1);
+/* ── LOGIN / SIGNUP WRAPPER ── */
+.wrapper {
+  max-width: 390px;
+  width: 100%;
+  background: #fff;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0px 15px 25px rgba(0,0,0,0.2);
 }
 
-.navbar button{
-  padding:10px 20px;
-  margin-left:15px;
-  border:none;
-  border-radius:20px;
-  cursor:pointer;
-  font-weight:bold;
-  transition:0.3s;
+.title-text { width: 100%; }
+
+.form-title {
+  font-size: 28px;
+  font-weight: 600;
+  text-align: center;
+  color: #f097a0;
+  margin-bottom: 10px;
 }
 
-.signin{
-  background:#fff;
-  color:#333;
+.field {
+  height: 50px;
+  width: 100%;
+  margin-top: 20px;
 }
 
-.signup{
-  background:#ff69b4;
-  color:white;
+.field input {
+  height: 100%;
+  width: 100%;
+  padding-left: 15px;
+  border-radius: 15px;
+  border: 1px solid #f097a0;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
 }
 
-.navbar button:hover{
-  transform:scale(1.1);
+.btn { margin-top: 20px; }
+
+.btn input {
+  width: 100%;
+  height: 50px;
+  border-radius: 15px;
+  border: none;
+  background: linear-gradient(to right, #fadadd, #f7c4c8, #f4adb4, #f1979f);
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-family: Papyrus, fantasy;
 }
 
-body{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background-color:#fadadd;
-  min-height:100vh;
-  padding-top:100px;
+.btn input:hover { opacity: 0.9; transform: scale(1.03); }
+
+.signup-link, .pass-link { margin-top: 10px; text-align: center; }
+.signup-link span { color: #f097a0; cursor: pointer; font-weight: 500; }
+.pass-link a { color: #f097a0; text-decoration: none; }
+.pass-link a:hover { text-decoration: underline; }
+
+#loginMessage {
+  margin-top: 10px;
+  text-align: center;
+  font-weight: 500;
 }
 
-.container{
-  position:relative;
-  width:1100px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex-wrap:wrap;
-  padding:30px;
+/* ── GAME ── */
+.game-container {
+  margin-top: 20px;
 }
 
-.container .card{
-  position:relative;
-  background-image:url(aaa.gif);
-  max-width:400px;
-  height:215px;
-  background-color:#fff;
-  margin:30px 10px;
-  padding:20px 15px;
-  display:flex;
-  flex-direction:column;
-  box-shadow:0 5px 20px rgba(0,0,0,0.5);
-  transition:0.3s ease-in-out;
-  border-radius:15px;
-}
-
-.container .card:hover{
-  height:320px;
-}
-
-.container .card .image{
-  position:relative;
-  width:390px;
-  height:200px;
-  top:-40%;
-  left:8px;
-  box-shadow:0 5px 20px rgba(0,0,0,0.2);
-  z-index:1;
-}
-
-.container .card .image img{
-  max-width:390px;
-  border-radius:15px;
-}
-
-.container .card .content{
-  position:relative;
-  top:-140px;
-  padding:10px 15px;
-  color:#111;
-  text-align:center;
-  visibility:hidden;
-  opacity:0;
-  transition:0.3s ease-in-out;
-}
-
-.container .card:hover .content{
-  margin-top:30px;
-  visibility:visible;
-  opacity:1;
-  transition-delay:0.2s;
-}
-
-.wrapper{
-  overflow:hidden;
-  max-width:390px;
-  width:100%;
-  background:#fff;
-  padding:30px;
-  border-radius:15px;
-  box-shadow:0px 15px 25px rgba(0,0,0,0.2);
-  display: none; 
-}
-
-.title-text{
-  width:100%;
-}
-
-.title{
-  font-size:30px;
-  font-weight:600;
-  text-align:center;
-  color:#f097a0;
-  display:none;
-}
-
-input[type="radio"]{
-  display:none;
-}
-
-.form-inner{
-  width:100%;
-}
-
-.form-inner form{
-  width:100%;
-  display:none;
-}
-
-.field{
-  height:50px;
-  width:100%;
-  margin-top:20px;
-}
-
-.field input{
-  height:100%;
-  width:100%;
-  padding-left:15px;
-  border-radius:15px;
-  border:1px solid #f097a0;
-  font-size:16px;
-}
-
-.btn{
-  margin-top:20px;
-}
-
-.btn input{
-  width:100%;
-  height:50px;
-  border-radius:15px;
-  border:none;
-  background:linear-gradient(to right, #fadadd, #f7c4c8, #f4adb4, #f1979f);
-  color:#fff;
-  font-size:18px;
-  cursor:pointer;
-  transition:0.3s;
-}
-
-.btn input:hover{
-  opacity:0.9;
-  transform:scale(1.03);
-}
-
-.signup-link, .pass-link{
-  margin-top:10px;
-  text-align:center;
-}
-
-.signup-link label{
-  color:#f097a0;
-  cursor:pointer;
-  font-weight:500;
-}
-
-.pass-link a{
-  color:#f097a0;
-  text-decoration:none;
-}
-
-.pass-link a:hover{
-  text-decoration:underline;
-}
-
-#login:checked ~ .wrapper .title-text .title:first-child{
-  display:block;
-}
-
-#signup:checked ~ .wrapper .title-text .title:nth-child(2){
-  display:block;
-}
-
-#login:checked ~ .wrapper .form-inner form:first-child{
-  display:block;
-}
-
-#signup:checked ~ .wrapper .form-inner form:nth-child(2){
-  display:block;
-}
-
-.back-btn{
-  margin-top:20px;
-  text-align:center;
-}
-
-.back-btn button{
-  padding:10px 20px;
-  border:none;
-  border-radius:15px;
-  background:#f097a0;
-  color:#fff;
-  cursor:pointer;
-  font-size:16px;
-}
-
-#loginMessage{
-  margin-top:10px;
-  text-align:center;
-  font-weight:500;
-}
-
-.game-container{
-  position: fixed;
-  right: 120px;
-  bottom: 120px;
+#game {
   width: 330px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  gap: 10px;
+}
+
+.hole {
+  width: 100px;
+  height: 100px;
+  background: #f7c4c8;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+}
+
+.mole {
+  position: absolute;
+  bottom: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: 0.15s;
+}
+
+.mole img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+
+.mole.up { bottom: 10px; }
+
+#scoreboard {
+  margin: 10px;
+  font-size: 18px;
+  color: #f097a0;
   text-align: center;
 }
 
-#game{
-  width:330px;
-  margin:0 auto;
-  display:grid;
-  grid-template-columns:repeat(3,100px);
-  gap:10px;
+#startBtn {
+  display: block;
+  margin: 0 auto 10px;
+  padding: 8px 18px;
+  border: none;
+  border-radius: 20px;
+  background: #ff69b4;
+  color: white;
+  font-weight: bold;
+  font-family: Papyrus, fantasy;
+  cursor: pointer;
 }
 
-.hole{
-  width:100px;
-  height:100px;
-  background:#f7c4c8;
-  border-radius:50%;
-  position:relative;
-  overflow:hidden;
+/* ── QUIZ ── */
+.quiz-page {
+  background: #fff;
+  border-radius: 20px;
+  padding: 30px 40px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
 }
 
-.mole{
-  position:absolute;
-  bottom:-100px;
-  left:50%;
-  transform:translateX(-50%);
-  transition:0.15s;
+.quiz-page h2 { color: #f097a0; margin-bottom: 10px; }
+.quiz-page h3 { color: rgba(50,126,27,1); margin: 20px 0 10px; }
+.quiz-page h4 { color: rgba(124,20,9,1); margin-bottom: 15px; font-size: 14px; }
+
+.quiz-q {
+  margin-bottom: 18px;
+  color: #333;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
 }
 
-.mole img{
-  width:80px;
-  height:80px;
-  object-fit:cover;
-  border-radius:50%;
-  display:block;
+.quiz-q label { display: block; margin: 4px 0 4px 16px; cursor: pointer; }
+.quiz-q label:hover { color: #ff69b4; }
+
+.quiz-img-group {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin: 10px 0;
 }
 
-.mole.up{
-  bottom:10px;
+.quiz-img-group label {
+  text-align: center;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
 }
 
-#scoreboard{
-  margin:10px;
-  font-size:18px;
-  color:#f097a0;
+.quiz-img-group img {
+  display: block;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  transition: 0.2s;
 }
 
-#startBtn{
-  padding:8px 18px;
-  border:none;
-  border-radius:20px;
-  background:#ff69b4;
-  color:white;
-  font-weight:bold;
-  cursor:pointer;
-  margin-bottom:10px;
+.quiz-img-group input:checked + img,
+.quiz-img-group label:has(input:checked) img {
+  border-color: #ff69b4;
 }
+
+#submitBtn {
+  margin-top: 20px;
+  padding: 10px 30px;
+  border: none;
+  border-radius: 20px;
+  background: #ff69b4;
+  color: white;
+  font-weight: bold;
+  font-family: Papyrus, fantasy;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+#submitBtn:hover { transform: scale(1.05); }
 
 </style>
 </head>
-
 <body>
 
-<div class="navbar">
-  <button class="signin" onclick="showForm('login')">Sign In</button>
-  <button class="signup" onclick="showForm('signup')">Sign Up</button>
-</div>
-
+<!-- SIDE MENU (always visible) -->
 <div class="side-menu">
   <h1>About Me!!</h1>
-  <button onclick="window.location.href='personal_details.html'">Personal Details</button>
-  <button onclick="window.location.href='family background.html'">Family Background</button>
-  <button onclick="window.location.href='personal.html'">Personal</button>
-  <button onclick="window.location.href='coll.html'">My Collection</button>
-  <button onclick="window.location.href='fam.html'">Family</button>
-  <button onclick="window.location.href='educ.html'">Education</button>
-   <button onclick="window.location.href='quiz.html'">Wanna take a quiz? Click here :3</button>
+  <button onclick="showPage('home')" class="active" id="btn-home">🏠 Home</button>
+  <button onclick="showPage('personal_details')" id="btn-personal_details">Personal Details</button>
+  <button onclick="showPage('family_background')" id="btn-family_background">Family Background</button>
+  <button onclick="showPage('personal')" id="btn-personal">Personal</button>
+  <button onclick="showPage('collection')" id="btn-collection">My Collection</button>
+  <button onclick="showPage('family')" id="btn-family">Family</button>
+  <button onclick="showPage('education')" id="btn-education">Education</button>
+  <button onclick="showPage('quiz')" id="btn-quiz" class="quiz-btn">Wanna take a quiz? Click here :3</button>
 </div>
 
-<div class="container">
-  <div class="card">
-    <div class="image">
-      <img src="https://gifdb.com/images/high/miku-hugging-a-plush-iu3gt5mriovs55bg.gif">
+<div class="main">
+
+  <div class="navbar">
+    <button class="signin" onclick="showPage('login')">Sign In</button>
+    <button class="signup" onclick="showPage('signup')">Sign Up</button>
+  </div>
+
+  <div class="page active" id="page-home">
+    <div class="home-content">
+      <div class="card">
+        <div class="image">
+          <img src="https://gifdb.com/images/high/miku-hugging-a-plush-iu3gt5mriovs55bg.gif">
+        </div>
+        <div class="content">
+          <h2>Name: Winny A. Verzosa</h2>
+          <p><b>Grade Level:</b> 11-Linnaeus</p>
+          <p><b>Hobbies:</b> sleeping, playing, watching, and browsing the internet :3</p>
+          <p><b>About Me:</b> I love discovering new stuff, especially the cool and cute ones! :D</p>
+        </div>
+      </div>
     </div>
-    <div class="content">
-      <h2>Name: Winny A. Verzosa</h2>
-      <p><b>Grade Level:</b> 11-Linnaeus</p>
-      <p><b>Hobbies:</b> sleeping, playing, watching, and browsing the internet :3</p>
-      <p><b>About Me:</b> I love discovering new stuff, especially the cool and cute ones! :D</p>
+
+    <div class="game-container">
+      <h2 style="text-align:center;color:#f097a0;"> ≽(◉˕ ◉ ≼マ </h2>
+      <div id="scoreboard">
+        Score: <span id="score">0</span> | Time: <span id="time">60</span>
+      </div>
+      <button id="startBtn">Start Game</button>
+      <div id="game"></div>
     </div>
   </div>
-</div>
 
-<input type="radio" name="slide" id="login" checked>
-<input type="radio" name="slide" id="signup">
+  <div class="page" id="page-personal_details" style="padding:0;">
+    <div id="pd-container" style="
+      position:relative;
+      width:100%;
+      min-height:100vh;
+      background-image:url('https://i.pinimg.com/originals/aa/1b/01/aa1b0107b776f2a4cb0dffba54c06aed.gif');
+      background-size:cover;
+      background-position:center;
+      background-repeat:no-repeat;
+      overflow:hidden;
+      font-family:Papyrus,fantasy;
+      color:black;
+    ">
+      <h1 style="font-family:Papyrus,fantasy;color:rgb(0,0,0);padding:20px 20px 0 20px;">Winny A.Verzosa</h1>
 
-<div class="wrapper">
-  <div class="title-text">
-    <div class="title">Login Form</div>
-    <div class="title">Signup Form</div>
+      <p style="font-family:Papyrus,fantasy;font-size:14px;font-style:italic;padding:0 20px;">
+        <img id="pd-img1" src="https://i.pinimg.com/originals/4b/9a/76/4b9a7627c8191e30923cbdd2517ca155.jpg" style="position:absolute;width:57px;height:57px;">
+        <br>I am Winny A. Verzosa, 19 years of age, born on July 14, 2006 in Quezon City, Philippines.</br>
+        <br>I live in Project 4, QC and currently a senior high student under the Information and Communication Technology (ICT) strand at Quirino High School.</br>
+        <br>I completed my elementary level at Project 3 Elementary School and finished my junior high school at Quirino High School.</br>
+        <br>I am the third of four children of Raul O. Verzosa and Rosemarie T. Aquino.</br>
+      </p>
+
+      <p style="font-family:Papyrus,fantasy;font-size:14px;font-style:italic;padding:0 20px;">
+        <img id="pd-img2" src="https://i.pinimg.com/474x/12/8a/b0/128ab09831f1b2ec22769f2f2c359383.jpg?nii=t" style="position:absolute;width:57px;height:57px;">
+        <br>I did not grow up as an excellent child, in fact I am a slow learner and it's quite hard for me to adapt to changes.</br>
+        <br>It's not easy for me to socialize as it gets hard for me to communicate and express my feelings at times.</br>
+        <img id="pd-img3" src="https://media1.tenor.com/m/-ppimn_IwNcAAAAd/fatass-teto-teto-plush.gif" style="position:absolute;width:57px;height:57px;">
+        <br>I also find handling long-term relationships with my friends difficult as I tend to push people away.</br>
+        <br>I spend my free time engaging in personal interests such as playing video games, reading random stuff, watching anime, exploring the internet, and listening to music.</br>
+        <br>I also enjoy going out when it rains, as I find peace and comfort in that atmosphere.</br>
+      </p>
+
+      <p style="font-family:Papyrus,fantasy;font-size:14px;font-style:italic;padding:0 20px;">
+        <br>I grew up with my mom and dad, along with my siblings until I turned 15—when my mom left us. Since then, my siblings and I have lived under the same roof with our father.</br>
+        <br>Life hasn't been easy ever since; I've faced some personal struggles that affected my education and well-being and I had to drop Grade 11 (GAS) due to my poor mental state.</br>
+        <br>There were a lot of difficult moments in my life that made me feel hopeless, but they taught me resilience and self-awareness, which I'm thankful of.</br>
+        <img id="pd-img4" src="https://i5.walmartimages.com/seo/Kasane-Teto-Plush-Doll-9-8-25CM-Kasane-Teto-Anime-Peripherals-Plush-Toy-Kasane-Teto-Soft-Throw-Plush-Toy-Pillow-Kasane-Home-Sofa-Decoration-Gift-Kasa_590d9841-ec4b-46a3-8c00-f56f087ab927.9d3d0db3061d08be1b3c4bb76018bcfa.jpeg?odnHeight=290&odnWidth=290&odnBg=FFFFFF" style="position:absolute;width:65px;height:65px;">
+      </p>
+    </div>
   </div>
 
-  <div class="form-inner">
-    <form id="loginForm">
-      <div class="field">
-        <input type="text" id="loginEmail" placeholder="Email Address" required>
-      </div>
-      <div class="field">
-        <input type="password" id="loginPassword" placeholder="Password" required>
-      </div>
-      <div class="pass-link">
-        <a href="#">Forgot Password?</a>
-      </div>
-      <div class="btn">
-        <input type="submit" value="Login">
-      </div>
-      <div class="signup-link">
-        Not a member? <label for="signup">Signup now</label>
-      </div>
-      <p id="loginMessage"></p>
-    </form>
-
-    <form id="signupForm">
-      <div class="field">
-        <input type="text" placeholder="Email Address" required>
-      </div>
-      <div class="field">
-        <input type="password" placeholder="Password" required>
-      </div>
-      <div class="field">
-        <input type="password" placeholder="Confirm Password" required>
-      </div>
-      <div class="btn">
-        <input type="submit" value="Signup">
-      </div>
-      <div class="signup-link">
-        Already a member? <label for="login">Login</label>
-      </div>
-    </form>
+  <div class="page" id="page-family_background" style="padding:0;">
+    <div style="
+      position:relative;
+      width:100%;
+      min-height:100vh;
+      background-image:url('https://i.pinimg.com/originals/aa/1b/01/aa1b0107b776f2a4cb0dffba54c06aed.gif');
+      background-size:cover;
+      background-position:center;
+      background-repeat:no-repeat;
+      overflow:hidden;
+      font-family:Papyrus,fantasy;
+      color:black;
+      padding:20px;
+    ">
+      <p style="font-family:Papyrus,fantasy;font-size:14px;font-style:italic;">
+        <br>We are a family of six (including me) from Quezon City, Philippines.</br>
+        <br>My father, Raul O. Verzosa, is employed at the Department of Public Works and Highways (DPWH) working for the development and maintenance of public infrastructure.</br>
+        <br>My mother, Rosemarie T. Aquino, no longer lives with us, and we currently have limited contact with her.</br>
+        <br>My eldest brother, Mervin Aries A. Verzosa, will start his fourth year in college this August.</br>
+        <br>My second brother, Patrick Raliegh A. Verzosa, works as a part-timer.</br>
+        <br>I am the third of four children, Winny A. Verzosa, I'm currently a senior high student (Grade 11) at Quirino High School</br>
+        <br>and our youngest sister, Queeny A. Verzosa, is in Grade 8, who's also enrolled at the same school with me.</br>
+      </p>
+      <p style="font-family:Papyrus,fantasy;font-size:14px;font-style:italic;">
+        <br>My family is quite complicated, we often experience misunderstandings that leads to arguments, my mom no longer resides with us ever since they separated,</br>
+        <br>and we do not follow any particular family traditions.</br>
+        <br>Still, we always try to find ways to have a good connection with each others and maintain a good relationship.</br>
+      </p>
+    </div>
   </div>
 
-  <div class="back-btn">
-    <button onclick="hideForm()">Back to Home</button>
+  <div class="page" id="page-personal">
+    <div style="padding:30px;">
+      <p style="font-family:Papyrus,fantasy;margin-bottom:15px;">my only child pic T.T</p>
+      <details style="margin-bottom:15px;">
+        <summary style="font-size:18px;font-weight:bold;cursor:pointer;font-family:Papyrus,fantasy;">♡ Only Child Pic</summary>
+        <div style="display:flex;gap:10px;margin:15px 0 30px 0;flex-wrap:wrap;">
+          <img src="images/personal/e.jpg" style="width:200px;height:300px;border-radius:10px;">
+        </div>
+      </details>
+      <details style="margin-bottom:15px;">
+        <summary style="font-size:18px;font-weight:bold;cursor:pointer;font-family:Papyrus,fantasy;">♡ Cyberdoll Wannabe</summary>
+        <div style="display:flex;gap:10px;margin:15px 0 30px 0;flex-wrap:wrap;">
+          <img src="images/personal/aaa.jpg" style="width:200px;height:300px;border-radius:10px;">
+          <img src="images/personal/ap.jpg" style="width:200px;height:300px;border-radius:10px;">
+          <img src="images/personal/bc.jpg" style="width:200px;height:300px;border-radius:10px;">
+        </div>
+      </details>
+      <details style="margin-bottom:15px;">
+        <summary style="font-size:18px;font-weight:bold;cursor:pointer;font-family:Papyrus,fantasy;">♡ Random</summary>
+        <div style="display:flex;gap:10px;margin:15px 0 30px 0;flex-wrap:wrap;">
+          <img src="images/personal/asdf.jpg" style="width:200px;height:300px;border-radius:10px;">
+          <img src="images/personal/fuglyy.jfif" style="width:200px;height:300px;border-radius:10px;">
+          <img src="images/personal/fugly1.jfif" style="width:550px;height:300px;border-radius:10px;">
+          <img src="images/personal/fugly2.jfif" style="width:200px;height:300px;border-radius:10px;">
+          <img src="images/personal/a.jpg" style="width:200px;height:300px;border-radius:10px;">
+        </div>
+      </details>
+      <details style="margin-bottom:15px;">
+        <summary style="font-size:18px;font-weight:bold;cursor:pointer;font-family:Papyrus,fantasy;">♡ School Roleplay</summary>
+        <div style="display:flex;gap:10px;margin:15px 0 30px 0;flex-wrap:wrap;">
+          <img src="images/personal/asd.jpg" style="width:200px;height:300px;border-radius:10px;">
+          <img src="images/personal/fugly.jpg" style="width:200px;height:300px;border-radius:10px;">
+          <img src="images/personal/eee.jpg" style="width:200px;height:300px;border-radius:10px;">
+        </div>
+      </details>
+    </div>
   </div>
-</div>
 
-<div class="game-container">
- <h1> ≽(◉˕ ◉ ≼マ </h1>
-  <div id="scoreboard">
-    Score: <span id="score">0</span> |
-    Time: <span id="time">60</span>
+
+  <div class="page" id="page-collection">
+    <div style="padding:30px;">
+      <details style="margin-bottom:15px;">
+        <summary style="font-size:18px;font-weight:bold;cursor:pointer;font-family:Papyrus,fantasy;">★ Random hahahahhaha</summary>
+        <div style="display:flex;gap:10px;margin:15px 0 30px 0;flex-wrap:wrap;">
+          <img src="images/collection/col1.jpg" style="width:200px;height:300px;border-radius:10px;">
+          <img src="images/collection/hahahhaa.jpg" style="width:200px;height:300px;border-radius:10px;">
+          <img src="images/collection/cv1.jpg" style="width:600px;height:300px;border-radius:10px;">
+          <img src="images/collection/rb.jpg" style="width:600px;height:300px;border-radius:10px;">
+        </div>
+      </details>
+      <details style="margin-bottom:15px;">
+        <summary style="font-size:18px;font-weight:bold;cursor:pointer;font-family:Papyrus,fantasy;">★ MC nd ML</summary>
+        <div style="display:flex;gap:10px;margin:15px 0 30px 0;flex-wrap:wrap;">
+          <img src="images/collection/mc2.jpg" style="width:600px;height:300px;border-radius:10px;">
+          <img src="images/collection/mc3.jpg" style="width:600px;height:300px;border-radius:10px;">
+          <img src="images/collection/ml.jpg" style="width:600px;height:300px;border-radius:10px;">
+        </div>
+      </details>
+      <details style="margin-bottom:15px;">
+        <summary style="font-size:18px;font-weight:bold;cursor:pointer;font-family:Papyrus,fantasy;">★ Foods</summary>
+        <div style="display:flex;gap:10px;margin:15px 0 30px 0;flex-wrap:wrap;">
+          <img src="images/collection/c13.jpg" style="width:600px;height:300px;border-radius:10px;">
+          <img src="images/collection/c22.jpg" style="width:200px;height:300px;border-radius:10px;">
+          <img src="images/collection/col10.jpg" style="width:200px;height:300px;border-radius:10px;">
+          <img src="images/collection/col11.jpg" style="width:200px;height:300px;border-radius:10px;">
+          <img src="images/collection/mlhhh.jpg" style="width:200px;height:300px;border-radius:10px;">
+          <img src="images/collection/tako.jpg" style="width:200px;height:300px;border-radius:10px;">
+          <img src="images/collection/mcdo.jpg" style="width:600px;height:300px;border-radius:10px;">
+          <img src="images/collection/mcdo2.jpg" style="width:200px;height:300px;border-radius:10px;">
+        </div>
+      </details>
+      <details style="margin-bottom:15px;">
+        <summary style="font-size:18px;font-weight:bold;cursor:pointer;font-family:Papyrus,fantasy;">★ Random Places</summary>
+        <div style="display:flex;gap:10px;margin:15px 0 30px 0;flex-wrap:wrap;">
+          <img src="images/collection/c11.jpg" style="width:600px;height:300px;border-radius:10px;">
+          <img src="images/collection/vh.jpg" style="width:200px;height:300px;border-radius:10px;">
+          <img src="images/collection/aaa.jpg" style="width:200px;height:300px;border-radius:10px;">
+          <img src="images/collection/adfd.jpg" style="width:600px;height:300px;border-radius:10px;">
+          <img src="images/collection/unknown.jpg" style="width:200px;height:300px;border-radius:10px;">
+        </div>
+      </details>
+    </div>
   </div>
 
-  <button id="startBtn">Start Game</button>
+  <div class="page" id="page-family">
+    <div style="padding:30px;">
+      <p style="font-family:Papyrus,fantasy;margin-bottom:15px;">There aren't much to see here since our family is kinda complicated — taking a pic isn't really our thing, especially with tatay. We don't have any pics that we are all together, but here are some of our pics</p>
+      <details style="margin-bottom:15px;">
+        <summary style="font-size:18px;font-weight:bold;cursor:pointer;font-family:Papyrus,fantasy;">[◉°] Me with them (Queeny, Patrick, and younger cousins)</summary>
+        <div style="display:flex;gap:10px;margin:15px 0 30px 0;flex-wrap:wrap;">
+          <img src="images/family/meq.jpg" style="width:200px;height:300px;border-radius:10px;">
+          <img src="images/family/mewq5.jpg" style="width:200px;height:300px;border-radius:10px;">
+          <img src="images/family/mewp.jpg" style="width:200px;height:300px;border-radius:10px;">
+          <img src="images/family/mewq4.jpg" style="width:200px;height:300px;border-radius:10px;">
+          <img src="images/family/mewq2.jpg" style="width:200px;height:300px;border-radius:10px;">
+          <img src="images/family/mewq.jpg" style="width:200px;height:300px;border-radius:10px;">
+          <img src="images/family/mewq6.jpg" style="width:200px;height:300px;border-radius:10px;">
+        </div>
+      </details>
+      <details style="margin-bottom:15px;">
+        <summary style="font-size:18px;font-weight:bold;cursor:pointer;font-family:Papyrus,fantasy;">[◉°] Pics including Mama</summary>
+        <div style="display:flex;gap:10px;margin:15px 0 30px 0;flex-wrap:wrap;">
+          <img src="images/family/mama2.jpg" style="width:200px;height:300px;border-radius:10px;">
+          <img src="images/family/mamanp.jpg" style="width:200px;height:300px;border-radius:10px;">
+          <img src="images/family/mamanq.jpg" style="width:200px;height:300px;border-radius:10px;">
+          <img src="images/family/mamaq4.jpg" style="width:200px;height:300px;border-radius:10px;">
+        </div>
+      </details>
+      <details style="margin-bottom:15px;">
+        <summary style="font-size:18px;font-weight:bold;cursor:pointer;font-family:Papyrus,fantasy;">[◉°] Tatay (he doesn't like taking pics ...)</summary>
+        <div style="display:flex;gap:10px;margin:15px 0 30px 0;flex-wrap:wrap;">
+          <img src="images/family/tatay2.jpg" style="width:200px;height:300px;border-radius:10px;">
+          <img src="images/family/tatay.jpg" style="width:200px;height:300px;border-radius:10px;">
+          <img src="images/family/tatay3.jpg" style="width:200px;height:300px;border-radius:10px;">
+        </div>
+      </details>
+      <details style="margin-bottom:15px;">
+        <summary style="font-size:18px;font-weight:bold;cursor:pointer;font-family:Papyrus,fantasy;">[◉°] Kuya nd Queeny</summary>
+        <div style="display:flex;gap:10px;margin:15px 0 30px 0;flex-wrap:wrap;">
+          <img src="images/family/kuya.jpg" style="width:200px;height:300px;border-radius:10px;">
+          <img src="images/family/sadgirlsahapag.jpg" style="width:200px;height:300px;border-radius:10px;">
+        </div>
+      </details>
+    </div>
+  </div>
 
-  <div id="game"></div>
+  <div class="page" id="page-education">
+    <div style="padding:30px;">
+      <p style="font-family:Papyrus,fantasy;margin-bottom:15px;">There aren't much to see here as I didn't really participated in any school related activities, I wasn't that active at school either. Also because I broke my old phone a few months ago that made retrieving pics impossible T_T</p>
+      <details style="margin-bottom:15px;">
+        <summary style="font-size:18px;font-weight:bold;cursor:pointer;font-family:Papyrus,fantasy;">ᡣ𐭩 Grade 6 Graduation Pics</summary>
+        <div style="display:flex;gap:10px;margin:15px 0 30px 0;flex-wrap:wrap;">
+          <img src="images/education/gradpic.jpg" style="width:200px;height:300px;border-radius:10px;">
+          <img src="images/education/gradpic2.jpg" style="width:200px;height:300px;border-radius:10px;">
+        </div>
+      </details>
+      <details style="margin-bottom:15px;">
+        <summary style="font-size:18px;font-weight:bold;cursor:pointer;font-family:Papyrus,fantasy;">ᡣ𐭩 Class Pic G10 SY 2022-2023</summary>
+        <div style="display:flex;gap:10px;margin:15px 0 30px 0;flex-wrap:wrap;">
+          <img src="images/education/classpic.jpg" style="width:600px;height:300px;border-radius:10px;">
+        </div>
+      </details>
+      <details style="margin-bottom:15px;">
+        <summary style="font-size:18px;font-weight:bold;cursor:pointer;font-family:Papyrus,fantasy;">ᡣ𐭩 G10 End of School Year Merit</summary>
+        <div style="display:flex;gap:10px;margin:15px 0 30px 0;flex-wrap:wrap;">
+          <img src="images/education/merit1.jpg" style="width:600px;height:300px;border-radius:10px;">
+          <img src="images/education/merit2.jpg" style="width:600px;height:300px;border-radius:10px;">
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <div class="page" id="page-login">
+    <div class="wrapper">
+      <div class="form-title">Login Form</div>
+      <form id="loginForm">
+        <div class="field">
+          <input type="text" id="loginEmail" placeholder="Email Address" required>
+        </div>
+        <div class="field">
+          <input type="password" id="loginPassword" placeholder="Password" required>
+        </div>
+        <div class="pass-link"><a href="#">Forgot Password?</a></div>
+        <div class="btn"><input type="submit" value="Login"></div>
+        <div class="signup-link">
+          Not a member? <span onclick="showPage('signup')">Signup now</span>
+        </div>
+        <p id="loginMessage"></p>
+      </form>
+      <div style="margin-top:15px;text-align:center;">
+        <button onclick="showPage('home')" style="padding:8px 20px;border:none;border-radius:15px;background:#f097a0;color:#fff;cursor:pointer;font-family:Papyrus,fantasy;">Back to Home</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="page" id="page-signup">
+    <div class="wrapper">
+      <div class="form-title">Signup Form</div>
+      <form id="signupForm">
+        <div class="field"><input type="text" placeholder="Email Address" required></div>
+        <div class="field"><input type="password" placeholder="Password" required></div>
+        <div class="field"><input type="password" placeholder="Confirm Password" required></div>
+        <div class="btn"><input type="submit" value="Signup"></div>
+        <div class="signup-link">
+          Already a member? <span onclick="showPage('login')">Login</span>
+        </div>
+      </form>
+      <div style="margin-top:15px;text-align:center;">
+        <button onclick="showPage('home')" style="padding:8px 20px;border:none;border-radius:15px;background:#f097a0;color:#fff;cursor:pointer;font-family:Papyrus,fantasy;">Back to Home</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="page" id="page-quiz">
+    <div class="quiz-page">
+      <h2>1-20 quiz about my interests! >)/< </h2>
+      <h4>answer or pause the vid in number 19 and 20 first! hurryyy, it will skip to the next vid if u r not fast enough (I used dailymotion in iframe TwT)</h4>
+
+      <h3>This is a quiz about sharks! (1-5)</h3>
+
+      <div class="quiz-q">
+        1. How many species of sharks are there?<br>
+        <label><input type="radio" name="q1"> Over 300</label>
+        <label><input type="radio" name="q1"> Over 100</label>
+        <label><input type="radio" name="q1" id="q1c"> Over 500</label>
+        <label><input type="radio" name="q1"> Over 700</label>
+      </div>
+
+      <div class="quiz-q">
+        2. What is the largest species of shark?<br>
+        <label><input type="radio" name="q2"> Great white shark</label>
+        <label><input type="radio" name="q2"> Basking shark</label>
+        <label><input type="radio" name="q2" id="q2c"> Whale shark</label>
+        <label><input type="radio" name="q2"> Tiger shark</label>
+      </div>
+
+      <div class="quiz-q">
+        3. Which shark is considered the most dangerous to humans?<br>
+        <label><input type="radio" name="q3"> Tiger shark</label>
+        <label><input type="radio" name="q3"> Hammerhead shark</label>
+        <label><input type="radio" name="q3" id="q3c"> Great white shark</label>
+        <label><input type="radio" name="q3"> Bull shark</label>
+      </div>
+
+      <div class="quiz-q">
+        4. What is the smallest species of shark?<br>
+        <label><input type="radio" name="q4"> Spined pygmy shark</label>
+        <label><input type="radio" name="q4"> Pygmy shark</label>
+        <label><input type="radio" name="q4"> Cookiecutter shark</label>
+        <label><input type="radio" name="q4" id="q4d"> Dwarf lantern shark</label>
+      </div>
+
+      <div class="quiz-q">
+        5. What do sharks have instead of bones?<br>
+        <label><input type="radio" name="q5"> Ligaments</label>
+        <label><input type="radio" name="q5"> Tendons</label>
+        <label><input type="radio" name="q5"> Muscle</label>
+        <label><input type="radio" name="q5" id="q5d"> Cartilage</label>
+      </div>
+
+      <h3>This is a quiz about WW2 fighter jets! (6-10)</h3>
+
+      <div class="quiz-q">
+        <img src="https://images.alphacoders.com/510/510195.jpg" style="width:100px;height:80px;border-radius:8px;margin-bottom:6px;"><br>
+        6. This is one of the most famous WW2 fighter aircraft. What is it?<br>
+        <label><input type="radio" name="q6"> Bristol Beaufighter</label>
+        <label><input type="radio" name="q6" id="q6b"> Supermarine Spitfire</label>
+        <label><input type="radio" name="q6"> Boulton Paul Defiant</label>
+        <label><input type="radio" name="q6"> Hawker Tempest</label>
+      </div>
+
+      <div class="quiz-q">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Color_Photographed_B-17E_in_Flight.jpg/1200px-Color_Photographed_B-17E_in_Flight.jpg" style="width:100px;height:80px;border-radius:8px;margin-bottom:6px;"><br>
+        7. What's the name of this aircraft?<br>
+        <label><input type="radio" name="q7"> P-38 Lightning</label>
+        <label><input type="radio" name="q7" id="q7b"> B-17 Flying Fortress</label>
+        <label><input type="radio" name="q7"> P-47 Thunderbolt</label>
+        <label><input type="radio" name="q7"> B-24 Liberator</label>
+      </div>
+
+      <div class="quiz-q">
+        <img src="https://images7.alphacoders.com/110/1102706.jpg" style="width:100px;height:80px;border-radius:8px;margin-bottom:6px;"><br>
+        8. What's the name of this aircraft?<br>
+        <label><input type="radio" name="q8" id="q8a"> P-38 Lightning</label>
+        <label><input type="radio" name="q8"> F4U Corsair</label>
+        <label><input type="radio" name="q8"> P-47 Thunderbolt</label>
+        <label><input type="radio" name="q8"> P-51 Mustang</label>
+      </div>
+
+      <div class="quiz-q">
+        9. Which aircraft is known for its stealth technology to penetrate anti-aircraft defenses?
+        <div class="quiz-img-group">
+          <label><input type="radio" name="q9" id="q9a"><br><img src="https://thedebrief.b-cdn.net/wp-content/uploads/2023/07/B-2-Spirit-scaled.jpg" width="130" height="90"><br>B-2 Spirit</label>
+          <label><input type="radio" name="q9"><br><img src="https://media.defense.gov/2021/Sep/29/2002864070/-1/-1/0/180409-F-IZ785-0096.JPG" width="130" height="90"><br>B-52 Stratofortress</label>
+          <label><input type="radio" name="q9"><br><img src="https://www.defencetalk.com/wp-content/uploads/2015/08/F-22-raptor-fighter-jet-europe.jpg" width="130" height="90"><br>F-22 Raptor</label>
+          <label><input type="radio" name="q9"><br><img src="http://2.bp.blogspot.com/-M_OMwANg8XU/TuuA4pt26JI/AAAAAAAAAQg/zykeKynpVbY/s1600/F-35%2BLightning%2BII%2BJoint%2BStrike%2BFighter2.jpg" width="130" height="90"><br>F-35 Lightning II</label>
+        </div>
+      </div>
+
+      <div class="quiz-q">
+        10. What two-engined bomber was Germany's "Jack of All Trades"?
+        <div class="quiz-img-group">
+          <label><input type="radio" name="q10"><br><img src="https://www.wallpaperflare.com/static/6/467/818/bomber-luftwaffe-airplane-heinkel-he-111-wallpaper.jpg" width="130" height="90"><br>Heinkel HE 111</label>
+          <label><input type="radio" name="q10" id="q10b"><br><img src="https://i1.wp.com/www.militaer-wissen.de/wp-content/uploads/2015/09/Junkers-Ju-88.jpg?ssl=1" width="130" height="90"><br>Junkers JU 88</label>
+          <label><input type="radio" name="q10"><br><img src="https://static.wikia.nocookie.net/ww2-wiki/images/6/6f/D1-Dornier-Do-17-aa.jpg/revision/latest?cb=20190916171759" width="130" height="90"><br>Dornier DO 17</label>
+          <label><input type="radio" name="q10"><br><img src="https://imgr1.flugrevue.de/image-169FullWidth-1d5efb24-1999280.jpg" width="130" height="90"><br>Junkers JU 89</label>
+        </div>
+      </div>
+
+      <h3>This is a quiz about WW2 tanks! (11-15)</h3>
+
+      <div class="quiz-q">
+        <img src="https://vistapointe.net/images/sturmgesch%C3%BCtz-iii-4.jpg" style="width:100px;height:80px;border-radius:8px;margin-bottom:6px;"><br>
+        11. It was an assault gun by Nazi Germany — the second-most produced tracked German AFV. What's its name?<br>
+        <label><input type="radio" name="q11"> M4 Sherman</label>
+        <label><input type="radio" name="q11" id="q11b"> Sturmgeschütz III (StuG III)</label>
+        <label><input type="radio" name="q11"> Panzerkampfwagen IV</label>
+        <label><input type="radio" name="q11"> Panzerkampfwagen V (Panther)</label>
+      </div>
+
+      <div class="quiz-q">
+        12. What was the main battle tank used by the German Army during WW2?
+        <div class="quiz-img-group">
+          <label><input type="radio" name="q12"><br><img src="https://origin.enormousexplosive.com/a/uploads/scale_super/1/10392/604259-wmpanzer4.jpg" width="130" height="90"><br>Panzer IV</label>
+          <label><input type="radio" name="q12" id="q12b"><br><img src="https://2.bp.blogspot.com/_1saGCgWTF8Y/S8iWK__U_dI/AAAAAAAAARs/m7WBGIXShSo/s1600/3.jpg" width="130" height="90"><br>Tiger I</label>
+          <label><input type="radio" name="q12"><br><img src="https://www.militaryimages.net/media/panzerkampfwagen-v-panther.43805/full?d=1521499398" width="130" height="90"><br>Panther</label>
+          <label><input type="radio" name="q12"><br><img src="https://www.warhistoryonline.com/wp-content/uploads/sites/64/2018/05/00-kingtigeriimst.jpg" width="130" height="90"><br>King Tiger (Tiger II)</label>
+        </div>
+      </div>
+
+      <div class="quiz-q">
+        <img src="https://origin.enormousexplosive.com/a/uploads/scale_super/1/10392/604259-wmpanzer4.jpg" style="width:100px;height:80px;border-radius:8px;margin-bottom:6px;"><br>
+        13. What was the primary role of the German Panzer IV during WW2?<br>
+        <label><input type="radio" name="q13"> Reconnaissance</label>
+        <label><input type="radio" name="q13"> Infantry support</label>
+        <label><input type="radio" name="q13" id="q13c"> Main battle tank</label>
+        <label><input type="radio" name="q13"> Anti-aircraft</label>
+      </div>
+
+      <div class="quiz-q">
+        14. Which Japanese tank was the most widely produced during WW2?
+        <div class="quiz-img-group">
+          <label><input type="radio" name="q14" id="q14a"><br><img src="https://media.cgtrader.com/variants/h2pw1ELbvAYxfNFi2s3bkuRZ/e44aa6a6359827c9089792cde0c079681b83d3b5c3037cc0525c25607e54355b/001b_Type%2097_Chi_Ha_Green_Vr.png" width="130" height="90"><br>Type 97 Chi-Ha</label>
+          <label><input type="radio" name="q14"><br><img src="https://www.globalsecurity.org/military/world/japan/images/type-95-ha-go-image04.jpg" width="130" height="90"><br>Type 95 Ha-Go</label>
+          <label><input type="radio" name="q14"><br><img src="https://fonzon.club/uploads/posts/2023-03/1680024367_fonzon-club-p-tank-type-3-chi-nu-8.png" width="130" height="90"><br>Type 3 Chi-Nu</label>
+          <label><input type="radio" name="q14"><br><img src="https://static-ptl-us.gcdn.co/dcont/fb/image/type_4_chi-to_4.jpg" width="130" height="90"><br>Type 4 Chi-To</label>
+        </div>
+      </div>
+
+      <div class="quiz-q">
+        15. Which tank destroyer was based on the M4 Sherman chassis, used by the US in WW2?
+        <div class="quiz-img-group">
+          <label><input type="radio" name="q15" id="q15a"><br><img src="http://data3.primeportal.net/tanks/dmitry_kiyatkin/m10_wolverine/images/m10_wolverine_01_of_25.jpg" width="130" height="90"><br>M10 Wolverine</label>
+          <label><input type="radio" name="q15"><br><img src="https://pole.se/wp-content/uploads/2017/08/M18-web7.jpg" width="130" height="90"><br>M18 Hellcat</label>
+          <label><input type="radio" name="q15"><br><img src="https://hdpic.club/uploads/posts/2022-01/1642878819_1-hdpic-club-p-m36-jackson-1.jpg" width="130" height="90"><br>M36 Jackson</label>
+          <label><input type="radio" name="q15"><br><img src="https://i.ytimg.com/vi/gpdGyL01GT8/maxresdefault.jpg" width="130" height="90"><br>TM24 Chaffee</label>
+        </div>
+      </div>
+
+      <h3>uhh err idk hajhajhjah (16-20)</h3>
+
+      <div class="quiz-q">
+        <img src="https://media1.tenor.com/m/-HxZPr742BwAAAAC/meme-cat.gif" style="width:100px;height:80px;border-radius:8px;margin-bottom:6px;"><br>
+        16. What is this?<br>
+        <label><input type="radio" name="q16"> Car</label>
+        <label><input type="radio" name="q16"> Bomb Simulator</label>
+        <label><input type="radio" name="q16"> Dragon</label>
+        <label><input type="radio" name="q16" id="q16d"> Cat Explotano</label>
+      </div>
+
+      <div class="quiz-q">
+        <img src="https://media.tenor.com/fh0c7l5B03EAAAAM/spinosaurus.gif" style="width:100px;height:80px;border-radius:8px;margin-bottom:6px;"><br>
+        17. What is this and why is it acting like that?<br>
+        <label><input type="radio" name="q17"> Lizard, he is cool</label>
+        <label><input type="radio" name="q17"> I don't know, I don't care</label>
+        <label><input type="radio" name="q17" id="q17c"> Spinosaurus, he's rocking it</label>
+        <label><input type="radio" name="q17"> SO WHAT IF YOU CAN SEE THE DARKEST SIDE OF ME...</label>
+      </div>
+
+      <div class="quiz-q">
+        <img src="https://i.pinimg.com/originals/b7/b6/0e/b7b60ead3172470fc80e81850b363ebe.jpg" style="width:100px;height:80px;border-radius:8px;margin-bottom:6px;"><br>
+        18. Identify the given image.<br>
+        <label><input type="radio" name="q18" id="q18a"> Alpha wolf meme hahahaha</label>
+        <label><input type="radio" name="q18"> I don't know, I don't care</label>
+        <label><input type="radio" name="q18"> Literally me</label>
+        <label><input type="radio" name="q18"> AWOOO BABY I'M PREYIN ON YOU TONIGHT~~</label>
+      </div>
+
+      <div class="quiz-q">
+        <iframe width="300" height="170" src="https://www.dailymotion.com/embed/video/xclasi" allowfullscreen style="border-radius:8px;margin-bottom:6px;display:block;"></iframe>
+        19. What can be seen in the video?<br>
+        <label><input type="radio" name="q19"> A grill dancing</label>
+        <label><input type="radio" name="q19"> I don't know, I don't care</label>
+        <label><input type="radio" name="q19"> Myself</label>
+        <label><input type="radio" name="q19" id="q19d"> Hatsune Miku dancing and singing about vegetable juice...</label>
+      </div>
+
+      <div class="quiz-q">
+        <iframe width="300" height="170" src="https://geo.dailymotion.com/player.html?video=x9nbix8" allowfullscreen style="border-radius:8px;margin-bottom:6px;display:block;"></iframe>
+        20. What can be seen in the video?<br>
+        <label><input type="radio" name="q20"> Old hag</label>
+        <label><input type="radio" name="q20"> The love of my life</label>
+        <label><input type="radio" name="q20"> Myself</label>
+        <label><input type="radio" name="q20" id="q20d"> Kasane Teto expressing love and affection through light-hearted metaphors and youthful exuberance.</label>
+      </div>
+
+      <button id="submitBtn" onclick="checkQuiz()">Submit</button>
+    </div>
+  </div>
 
 </div>
 
 <script>
-function showForm(type) {
-  document.querySelector('.container').style.display = 'none';
-  document.querySelector('.wrapper').style.display = 'block';
-  if (type === 'login') {
-    document.getElementById('login').checked = true;
-  } else {
-    document.getElementById('signup').checked = true;
+function showPage(pageId) {
+  document.querySelectorAll('.page').forEach(p => {
+    p.classList.remove('active');
+    p.style.display = 'none';
+  });
+
+  document.querySelectorAll('.side-menu button').forEach(b => b.classList.remove('active'));
+
+  const target = document.getElementById('page-' + pageId);
+  if (target) {
+    target.style.display = 'block';
+    target.offsetHeight;
+    target.classList.add('active');
   }
+
+  const btn = document.getElementById('btn-' + pageId);
+  if (btn) btn.classList.add('active');
 }
 
-function hideForm() {
-  document.querySelector('.container').style.display = 'flex';
-  document.querySelector('.wrapper').style.display = 'none';
-}
+document.querySelectorAll('.page').forEach(p => { p.style.display = 'none'; });
+document.getElementById('page-home').style.display = 'block';
+document.getElementById('page-home').classList.add('active');
 
-document.getElementById('loginForm').addEventListener('submit', function(event) {
-  event.preventDefault(); 
-  var email = document.getElementById('loginEmail').value;
-  var password = document.getElementById('loginPassword').value;
-  var message = document.getElementById('loginMessage');
-
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const email = document.getElementById('loginEmail').value;
+  const password = document.getElementById('loginPassword').value;
+  const message = document.getElementById('loginMessage');
   if (email === 'winny.verzosa02@gmail.com' && password === 'mellowgorenyan123') {
     message.style.color = 'green';
     message.innerHTML = 'Login Successful!';
@@ -471,8 +943,8 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
   }
 });
 
-document.getElementById('signupForm').addEventListener('submit', function(event) {
-  event.preventDefault();
+document.getElementById('signupForm').addEventListener('submit', function(e) {
+  e.preventDefault();
   alert('Sign Up Successful!');
 });
 
@@ -481,9 +953,7 @@ const scoreDisplay = document.getElementById("score");
 const timeDisplay = document.getElementById("time");
 const startBtn = document.getElementById("startBtn");
 
-let score = 0;
-let timeLeft = 30;
-let gameRunning = false;
+let score = 0, timeLeft = 60, gameRunning = false;
 
 const moleImages = [
   "https://i.pinimg.com/1200x/88/de/a4/88dea4b432ea7df3687f45f35d91d7de.jpg",
@@ -493,57 +963,44 @@ const moleImages = [
   "https://i.pinimg.com/736x/9a/55/7b/9a557bd089c1f564f7708fecea294482.jpg",
   "https://i.pinimg.com/736x/94/d1/22/94d122ef806661796b5f5dadb60c19d4.jpg"
 ];
-
 const bonusMole = "https://i.pinimg.com/originals/a2/50/da/a250da88d856fdd4243795d0c0881e18.gif";
 
-for(let i=0;i<9;i++){
+for (let i = 0; i < 9; i++) {
   const hole = document.createElement("div");
   hole.className = "hole";
-
   const mole = document.createElement("div");
   mole.className = "mole";
   mole.dataset.active = "false";
   mole.dataset.points = "1";
-
   const img = document.createElement("img");
   mole.appendChild(img);
-
   hole.appendChild(mole);
   game.appendChild(hole);
-
   mole.addEventListener("click", () => {
-    if(gameRunning && mole.dataset.active === "true"){
+    if (gameRunning && mole.dataset.active === "true") {
       score += parseInt(mole.dataset.points);
       scoreDisplay.textContent = score;
-
       mole.classList.remove("up");
       mole.dataset.active = "false";
     }
   });
 }
 
-function getSpeed(){
-  return Math.max(600, 1400 - (score * 20));
-}
+function getSpeed() { return Math.max(600, 1400 - (score * 20)); }
 
-function popMole(){
-  if(!gameRunning) return;
-
+function popMole() {
+  if (!gameRunning) return;
   const moles = document.querySelectorAll(".mole");
   const mole = moles[Math.floor(Math.random() * moles.length)];
-
-  if(Math.random() < 0.1){
+  if (Math.random() < 0.1) {
     mole.querySelector("img").src = bonusMole;
     mole.dataset.points = "5";
   } else {
-    const randIndex = Math.floor(Math.random() * moleImages.length);
-    mole.querySelector("img").src = moleImages[randIndex];
+    mole.querySelector("img").src = moleImages[Math.floor(Math.random() * moleImages.length)];
     mole.dataset.points = "1";
   }
-
   mole.classList.add("up");
   mole.dataset.active = "true";
-
   setTimeout(() => {
     mole.classList.remove("up");
     mole.dataset.active = "false";
@@ -551,20 +1008,15 @@ function popMole(){
   }, getSpeed());
 }
 
-function startGame(){
-  score = 0;
-  timeLeft = 60;
-  gameRunning = true;
+function startGame() {
+  score = 0; timeLeft = 60; gameRunning = true;
   scoreDisplay.textContent = score;
   timeDisplay.textContent = timeLeft;
-
   popMole();
-
   const timer = setInterval(() => {
     timeLeft--;
     timeDisplay.textContent = timeLeft;
-
-    if(timeLeft <= 0){
+    if (timeLeft <= 0) {
       gameRunning = false;
       clearInterval(timer);
       alert("Game Over! Score: " + score);
@@ -573,6 +1025,65 @@ function startGame(){
 }
 
 startBtn.addEventListener("click", startGame);
+
+const pdImages = [
+  { id: 'pd-img1', x: 100, y: 100, vx: 2, vy: 2 },
+  { id: 'pd-img2', x: 200, y: 200, vx: -2, vy: 1 },
+  { id: 'pd-img3', x: 300, y: 300, vx: 1, vy: -2 },
+  { id: 'pd-img4', x: 400, y: 400, vx: -1, vy: 2 }
+];
+
+function animatePD() {
+  const container = document.getElementById('pd-container');
+  if (!container) return;
+  const W = container.offsetWidth;
+  const H = container.offsetHeight;
+  pdImages.forEach(img => {
+    const el = document.getElementById(img.id);
+    if (!el) return;
+    img.x += img.vx;
+    img.y += img.vy;
+    if (img.x <= 0 || img.x >= W - el.offsetWidth) img.vx = -img.vx;
+    if (img.y <= 0 || img.y >= H - el.offsetHeight) img.vy = -img.vy;
+    el.style.left = img.x + 'px';
+    el.style.top = img.y + 'px';
+  });
+}
+
+pdImages.forEach(img => {
+  const el = document.getElementById(img.id);
+  if (el) { el.style.left = img.x + 'px'; el.style.top = img.y + 'px'; }
+});
+
+setInterval(animatePD, 16);
+function checkQuiz() {
+  let score = 0;
+  let wrong = [];
+  if (document.getElementById("q1c").checked) score++; else wrong.push(1);
+  if (document.getElementById("q2c").checked) score++; else wrong.push(2);
+  if (document.getElementById("q3c").checked) score++; else wrong.push(3);
+  if (document.getElementById("q4d").checked) score++; else wrong.push(4);
+  if (document.getElementById("q5d").checked) score++; else wrong.push(5);
+  if (document.getElementById("q6b").checked) score++; else wrong.push(6);
+  if (document.getElementById("q7b").checked) score++; else wrong.push(7);
+  if (document.getElementById("q8a").checked) score++; else wrong.push(8);
+  if (document.getElementById("q9a").checked) score++; else wrong.push(9);
+  if (document.getElementById("q10b").checked) score++; else wrong.push(10);
+  if (document.getElementById("q11b").checked) score++; else wrong.push(11);
+  if (document.getElementById("q12b").checked) score++; else wrong.push(12);
+  if (document.getElementById("q13c").checked) score++; else wrong.push(13);
+  if (document.getElementById("q14a").checked) score++; else wrong.push(14);
+  if (document.getElementById("q15a").checked) score++; else wrong.push(15);
+  if (document.getElementById("q16d").checked) score++; else wrong.push(16);
+  if (document.getElementById("q17c").checked) score++; else wrong.push(17);
+  if (document.getElementById("q18a").checked) score++; else wrong.push(18);
+  if (document.getElementById("q19d").checked) score++; else wrong.push(19);
+  if (document.getElementById("q20d").checked) score++; else wrong.push(20);
+
+  let message = "ur score is " + score + "/20";
+  if (wrong.length > 0) message += "\n\nu are wrong in number(s) :P :\n" + wrong.join(", ");
+  alert(message);
+}
 </script>
 
 </body>
