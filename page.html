@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Papyrus, fantasy;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  background-color: #fadadd;
+}
+
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 240px;
+  height: 100vh;
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  padding: 30px 20px;
+  z-index: 100;
+  box-shadow: 3px 0 15px rgba(0,0,0,0.08);
+}
+
+.side-menu h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.side-menu button {
+  padding: 10px 16px;
+  margin: 6px 0;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  font-family: Papyrus, fantasy;
+  background: #fff;
+  color: #333;
+  transition: 0.3s;
+  text-align: left;
+  font-size: 13px;
+}
+
+.side-menu button:hover {
+  transform: scale(1.05);
+  background: #f7c4c8;
+}
+
+.side-menu button.active {
+  background: #ff69b4;
+  color: white;
+}
+
+.side-menu .return-btn {
+  background: #ff69b4;
+  color: white;
+  margin-top: 10px;
+}
+
+.side-menu .return-btn:hover {
+  background: #f04f9a;
+}
+
+.main {
+  margin-left: 240px;
+  flex: 1;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.center-content {
+  text-align: center;
+  color: #f097a0;
+  font-size: 22px;
+  opacity: 0.7;
+}
+</style>
+</head>
+<body>
+
+<div class="side-menu">
+  <h1>૮꒰ ˶ ༝ •˶꒱ა ♡</h1>
+  <button>𖤐</button>
+  <button>𖤐</button>
+  <button>𖤐</button>
+  <button>𖤐</button>
+  <button>𖤐</button>
+  <button class="return-btn" onclick="window.location.href='index.html'">Return</button>
+</div>
+
+<div class="main">
+  <div class="center-content">
+    ✦ ✦ ✦
+  </div>
+</div>
+
+</body>
+</html>
