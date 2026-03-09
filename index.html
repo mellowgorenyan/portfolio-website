@@ -16,7 +16,6 @@ body {
   background-color: #fadadd;
 }
 
-/* ── SIDE MENU ── */
 .side-menu {
   position: fixed;
   top: 0;
@@ -73,7 +72,6 @@ body {
   background: #f04f9a;
 }
 
-/* ── MAIN CONTENT AREA ── */
 .main {
   margin-left: 240px;
   flex: 1;
@@ -82,7 +80,6 @@ body {
   overflow: hidden;
 }
 
-/* ── NAVBAR ── */
 .navbar {
   position: fixed;
   top: 0;
@@ -110,7 +107,6 @@ body {
 .signup { background: #ff69b4; color: white; }
 .navbar button:hover { transform: scale(1.1); }
 
-/* ── PAGES ── */
 .page {
   display: none;
   opacity: 0;
@@ -126,7 +122,6 @@ body {
   transform: translateX(0);
 }
 
-/* ── HOME PAGE ── */
 .home-content {
   display: flex;
   align-items: center;
@@ -183,7 +178,6 @@ body {
   transition-delay: 0.2s;
 }
 
-/* ── GENERIC PAGE CONTENT ── */
 .page-box {
   background: #fff;
   border-radius: 20px;
@@ -204,7 +198,6 @@ body {
   margin-bottom: 10px;
 }
 
-/* ── LOGIN / SIGNUP WRAPPER ── */
 .wrapper {
   max-width: 390px;
   width: 100%;
@@ -268,7 +261,6 @@ body {
   font-weight: 500;
 }
 
-/* ── GAME ── */
 .game-container {
   margin-top: 20px;
 }
@@ -328,7 +320,6 @@ body {
   cursor: pointer;
 }
 
-/* ── QUIZ ── */
 .quiz-page {
   background: #fff;
   border-radius: 20px;
@@ -395,10 +386,9 @@ body {
 </head>
 <body>
 
-<!-- SIDE MENU (always visible) -->
 <div class="side-menu">
   <h1>About Me!!</h1>
-  <button onclick="showPage('home')" class="active" id="btn-home">🏠 Home</button>
+  <button onclick="showPage('home')" class="active" id="btn-home">Home</button>
   <button onclick="showPage('personal_details')" id="btn-personal_details">Personal Details</button>
   <button onclick="showPage('family_background')" id="btn-family_background">Family Background</button>
   <button onclick="showPage('personal')" id="btn-personal">Personal</button>
